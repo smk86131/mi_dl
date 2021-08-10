@@ -28,7 +28,7 @@ plt.xlabel('length')
 plt.ylabel('weight')
 #plt.show()
 
-train_input,test_input,train_target,text_target \
+train_input,test_input,train_target,test_target \
     = train_test_split(perch_length,perch_weight,random_state=42)
 
 print(train_input.shape)
@@ -73,7 +73,19 @@ plt.show()
 
 #test_input 14개의 length
 
+knr.score(test_input, test_target)
 
+# 테스트 세트에 대한 예측을 만듭니다
+test_prediction = knr.predict(test_input)
+# 테스트 세트에 대한 평균 절댓값 오차를 계산합니다
+mae = mean_absolute_error(test_target, test_prediction)
+print(mae)
+
+# 이웃의 갯수를 3으로 설정합니다
+knr.n_neighbors = 3
+# 모델을 다시 훈련합니다
+knr.fit(train_input, train_target)
+print(knr.score(train_input, train_target))
 
 print(test_input)
 print(test_prediction)
